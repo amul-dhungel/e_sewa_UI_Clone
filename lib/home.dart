@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'data.dart';
 
 class Home extends StatelessWidget {
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
+  // extracting the strings or text of textformField.
+
+  TextEditingController emailId = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +51,7 @@ class Home extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(0.0),
                 child: TextFormField(
+                  controller: emailId,
                   validator: (value) {
                     if (value.isEmpty)
                       return 'This field cannot be empty';
@@ -74,6 +81,7 @@ class Home extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(0.0),
                 child: TextFormField(
+                  controller: password,
                   validator: (value) {
                     if (value.isEmpty)
                       return 'This field cannot be empty';
@@ -89,7 +97,7 @@ class Home extends StatelessWidget {
                     ),
                     filled: true,
                     fillColor: Colors.grey[200],
-                    labelText: 'Password',
+                    labelText: 'Password: ',
                     border: InputBorder.none,
                   ),
                 ),
@@ -126,7 +134,14 @@ class Home extends StatelessWidget {
                     height: 55.0,
                     child: RaisedButton(
                       onPressed: () {
-                        if (_globalKey.currentState.validate()) {}
+                        if (_globalKey.currentState.validate()) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Data(
+                                      email: emailId.text,
+                                      password: password.text)));
+                        }
                       },
                       color: Colors.green,
                       child: Container(
